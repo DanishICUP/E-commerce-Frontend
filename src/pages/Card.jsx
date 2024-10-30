@@ -12,20 +12,22 @@ const Card = () => {
 
   useEffect(() => {
     const tempData = [];
-    for (let items in cartItem) {
-      for (let item in cartItem[items]) {
-        if (cartItem[items][item] > 0) {  
-          tempData.push({
-            _id: items,
-            size: item,
-            quantity: cartItem[items][item]  
-          });
+    if (products.length > 0) {
+      for (let items in cartItem) {
+        for (let item in cartItem[items]) {
+          if (cartItem[items][item] > 0) {  
+            tempData.push({
+              _id: items,
+              size: item,
+              quantity: cartItem[items][item]  
+            });
+          }
         }
       }
+      setcartData(tempData);
     }
 
-    setcartData(tempData);
-  }, [cartItem]);
+  }, [cartItem,products]);
 
 
 

@@ -84,7 +84,7 @@ const Collection = () => {
 
   useEffect(() => {
     filterCopy();
-  }, [category, subcategory, Search, showSearch]);
+  }, [category, subcategory, Search, showSearch,products]);
 
   useEffect(() => {
     filterProductbyprice();

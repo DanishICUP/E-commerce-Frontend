@@ -12,7 +12,7 @@ const BestSeller = () => {
         const bestproduct = products.filter((item) => (item.bestseller));
         setbestseller(bestproduct.slice(0, 5));
 
-    }, [])
+    }, [products])
 
     return (
         <div className='py-8'>

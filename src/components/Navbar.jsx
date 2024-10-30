@@ -8,7 +8,15 @@ const Navbar = () => {
     const [visible , setvisible] = useState(false);
     const [color , setcolor] = useState(false);
 
-    const {setShowSearch , getCartCount} = useContext(ShopContext);
+    const {setShowSearch , getCartCount , navigate , settoken , token , setCartItem} = useContext(ShopContext);
+
+    const logout = () => {
+        localStorage.removeItem('token');
+        settoken('');
+        setCartItem({});
+        setTimeout(() => navigate('/login'), 0);
+    }
+    
 
     const changeTheme =()=>{
         setcolor(!color);
@@ -45,15 +53,20 @@ const Navbar = () => {
             <img onClick={() => setShowSearch(true)} className='w-6 cursor-pointer' src={assets.search_icon} alt="" />
 
                 <div className='group relative'>
-                    <Link to={"/login"}><img className='w-5 cursor-pointer' src={assets.profile_icon} alt="" /></Link>
+                    {/* <Link to={"/login"}></Link> */}
+                    <img onClick={()=> token ? null : navigate('/login')} className='w-5 cursor-pointer' src={assets.profile_icon} alt="" />
                     {/* drop down */}
+
+                   {
+                    token &&  
                     <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
-                        <div className='flex flex-col w-36 gap-2 py-2 px-5 bg-slate-200 text-gray-500 '>
-                            <p className='cursor-pointer hover:text-black'>My Profile</p>
-                            <p className='cursor-pointer hover:text-black'>Orders</p>
-                            <p className='cursor-pointer hover:text-black'>LogOut</p>
-                        </div>
-                    </div>        
+                    <div className='flex flex-col w-36 gap-2 py-2 px-5 bg-slate-200 text-gray-500 '>
+                        <p className='cursor-pointer hover:text-black'>My Profile</p>
+                        <p onClick={()=> navigate('/orders')} className='cursor-pointer hover:text-black'>Orders</p>
+                        <p onClick={logout} className='cursor-pointer hover:text-black'>LogOut</p>
+                    </div>
+                </div>       
+                   } 
                 </div>
 
                 <Link to="/card" className='relative'>
